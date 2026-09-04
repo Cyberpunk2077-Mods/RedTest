@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+# Test library: validate sources only. Do not build installable Mod packages.
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required redscript sources
+        run: |
+          test -f BaseTest.reds
+          test -f RedTest.reds
+          test -s BaseTest.reds
+          test -s RedTest.reds
